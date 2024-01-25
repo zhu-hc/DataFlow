@@ -1,14 +1,14 @@
-#ifndef __MUSIC_PRESENTER_H
-#define __MUSIC_PRESENTER_H
+#ifndef __SERIAL_PRESENTER_H
+#define __SERIAL_PRESENTER_H
 
-#include "MusicView.h"
-#include "MusicModel.h"
+#include "SerialView.h"
+#include "SerialModel.h"
 #include "App/Utils/ButtonEvent/ButtonEvent.h"
 
 namespace Page
 {
 
-class Music : public PageBase
+class Serial : public PageBase
 {
 public:
     typedef struct
@@ -18,8 +18,8 @@ public:
     } Param_t;
 
 public:
-    Music();
-    virtual ~Music();
+    Serial();
+    virtual ~Serial();
 
     virtual void onCustomAttrConfig();
     virtual void onViewLoad();
@@ -36,12 +36,13 @@ private:
     void AttachEvent(lv_obj_t* obj);
     static void onTimerUpdate(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
-    static void onKeyEvent(int key, int event, void *data);
+    static int onAccountEvent(Account* account, Account::EventParam_t* param);
 
 private:
-    MusicView View;
-    MusicModel Model;
+    SerialView View;
+    SerialModel Model;
     lv_timer_t* timer;
+    Account* account;
 };
 
 }

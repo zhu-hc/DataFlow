@@ -25,6 +25,7 @@
 #include "StartUp/StartUp.h"
 #include "Home/Home.h"
 #include "Music/Music.h"
+#include "Serial/Serial.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -40,6 +41,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(Startup);
     APP_CLASS_MATCH(Home);
     APP_CLASS_MATCH(Music);
+    APP_CLASS_MATCH(Serial);
 
     return nullptr;
 }

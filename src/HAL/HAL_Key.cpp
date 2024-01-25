@@ -4,8 +4,8 @@
 static HAL::CommitFunc_t CommitFunc;
 static void* UserData;
 
-static ButtonEvent LeftPush(5000);
-static ButtonEvent RightPush(5000);
+static ButtonEvent LeftPush(2000);
+static ButtonEvent RightPush(2000);
 
 static void Left_PushHandler(ButtonEvent* btn, int event)
 {
