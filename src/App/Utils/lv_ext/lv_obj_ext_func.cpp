@@ -116,7 +116,7 @@ void lv_obj_add_anim(
     lv_anim_start(a);                             /*Start the animation*/
 }
 
-lv_indev_t* lv_get_indev(lv_indev_type_t type)
+lv_indev_t* lv_get_indev(lv_indev_type_t type, const char *user)
 {
     lv_indev_t* cur_indev = NULL;
     for (;;)
@@ -129,7 +129,8 @@ lv_indev_t* lv_get_indev(lv_indev_type_t type)
 
         if (cur_indev->driver->type == type)
         {
-            return cur_indev;
+            if (user == nullptr || strcmp(user, (const char *)cur_indev->driver->user_data) == 0) 
+                return cur_indev;
         }
     }
     return NULL;

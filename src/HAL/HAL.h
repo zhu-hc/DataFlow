@@ -40,8 +40,10 @@ namespace HAL
 
     /* Encoder */
     void Encoder_Init();
-    int16_t Encoder_GetDiff();
-    bool Encoder_GetIsPush();
+    int16_t Encoder_GetLeftDiff();
+    bool Encoder_GetLeftIsPush();
+    int16_t Encoder_GetRightDiff();
+    bool Encoder_GetRightIsPush();
 
     /* Key */
     void Key_Init();

@@ -20,6 +20,12 @@ typedef enum
     Right
 } Key_Value_t;
 
+typedef enum 
+{
+    Front,
+    Rear
+} Led_Value_t;
+
 namespace HAL
 {
 
@@ -49,6 +55,7 @@ typedef struct
 /* Led */
 typedef struct
 {
+    Led_Value_t led;
     uint16_t data;
 } Led_Info_t;
 

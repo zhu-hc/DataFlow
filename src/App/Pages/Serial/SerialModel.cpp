@@ -11,8 +11,3 @@ void SerialModel::DeInit()
 {
 
 }
-
-uint32_t SerialModel::GetData()
-{
-    return lv_tick_get();
-}

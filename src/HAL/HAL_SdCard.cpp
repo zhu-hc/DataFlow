@@ -95,6 +95,7 @@ static void SD_Check(bool isInsert)
 {
     if(isInsert)
     {
+        delay(1000);
         bool ret = HAL::SD_Init();
 
         if(ret && SD_EventCallback)

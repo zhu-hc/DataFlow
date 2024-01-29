@@ -2,6 +2,20 @@
 
 using namespace Page;
 
+static Serial::BaudRate_t bauds[] = {
+	{ .baud = BANDRATE_C1, .led = 0x0001 },
+	{ .baud = 4800,        .led = 0x0002 },
+	{ .baud = 9600,        .led = 0x0004 },
+	{ .baud = 19200,       .led = 0x0008 },
+	{ .baud = 38400,       .led = 0x0010 },
+	{ .baud = 57600,       .led = 0x0020 },
+	{ .baud = 115200,      .led = 0x0040 },
+	{ .baud = 230400,      .led = 0x0080 },
+	{ .baud = 460800,      .led = 0x0100 },
+	{ .baud = 921600,      .led = 0x0200 },
+	{ .baud = BANDRATE_C2, .led = 0x0400 }
+};
+
 Serial::Serial()
 {
 
@@ -10,6 +24,18 @@ Serial::Serial()
 Serial::~Serial()
 {
 
+}
+
+void Serial::SetBaud(int32_t index)
+{
+	baud_index = index;
+
+	HAL::Led_Info_t info;
+	info.led = Led_Value_t::Rear;
+	info.data = index >= 0 ? bauds[baud_index].led : 0x0;
+	account->Notify("Led", &info, sizeof(info));
+
+	lv_label_set_text_fmt(View.ui.labelBaud, "%d", bauds[baud_index].baud);
 }
 
 void Serial::onCustomAttrConfig()
@@ -23,15 +49,17 @@ void Serial::onViewLoad()
 	Model.Init();
 
 	View.Create(root);
-	lv_label_set_text(View.ui.labelTitle, Name);
+	lv_label_set_text(View.ui.labelBaud, Name);
 
 	AttachEvent(root);
-
-	Model.TickSave = Model.GetData();
+	AttachEvent(View.ui.labelBaud);
 
 	account = new Account("Serial", DataProc::Center(), 0, this);
 	account->Subscribe("Key");
+	account->Subscribe("Led");
 	account->SetEventCallback(onAccountEvent);
+
+	SetBaud(6);
 }
 
 void Serial::onViewDidLoad()
@@ -71,6 +99,7 @@ void Serial::onViewUnload()
 {
 	View.Delete();
 	Model.DeInit();
+	SetBaud(-1);
 
 	if (account)
 	{
@@ -92,7 +121,7 @@ void Serial::AttachEvent(lv_obj_t* obj)
 
 void Serial::Update()
 {
-	lv_label_set_text_fmt(View.ui.labelTick, "tick = %d save = %d", Model.GetData(), Model.TickSave);
+
 }
 
 void Serial::onTimerUpdate(lv_timer_t* timer)
@@ -108,9 +137,21 @@ void Serial::onEvent(lv_event_t* event)
 	lv_event_code_t code = lv_event_get_code(event);
 	Serial* instance = (Serial*)lv_obj_get_user_data(obj);
 
-	if (code == LV_EVENT_SHORT_CLICKED || code == LV_EVENT_LEAVE)
+	if (obj == instance->View.ui.labelBaud && code == LV_EVENT_KEY)
 	{
-
+		uint32_t key = lv_event_get_key(event);
+		int32_t index = instance->baud_index;
+		switch (key)
+		{
+		case LV_KEY_LEFT:
+			instance->SetBaud(instance->baud_index <= 0 ? (sizeof(bauds) / sizeof(Serial::BaudRate_t) - 1) : (instance->baud_index - 1));
+			break;
+		case LV_KEY_RIGHT:
+			instance->SetBaud(instance->baud_index >= (sizeof(bauds) / sizeof(Serial::BaudRate_t) - 1) ? 0 : (instance->baud_index + 1));
+			break;
+		case LV_KEY_ENTER:
+			break;
+		}
 	}
 }
 

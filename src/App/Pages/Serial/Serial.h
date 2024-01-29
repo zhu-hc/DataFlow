@@ -5,6 +5,9 @@
 #include "SerialModel.h"
 #include "App/Utils/ButtonEvent/ButtonEvent.h"
 
+#define BANDRATE_C1 2400
+#define BANDRATE_C2 1500000
+
 namespace Page
 {
 
@@ -16,7 +19,11 @@ public:
         uint16_t time;
         lv_color_t color;
     } Param_t;
-
+    typedef struct
+    {
+        uint32_t baud;
+        uint16_t led;
+    } BaudRate_t;
 public:
     Serial();
     virtual ~Serial();
@@ -34,6 +41,7 @@ public:
 private:
     void Update();
     void AttachEvent(lv_obj_t* obj);
+    void SetBaud(int32_t index);
     static void onTimerUpdate(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
     static int onAccountEvent(Account* account, Account::EventParam_t* param);
@@ -43,6 +51,7 @@ private:
     SerialModel Model;
     lv_timer_t* timer;
     Account* account;
+    int32_t baud_index;
 };
 
 }

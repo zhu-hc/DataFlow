@@ -20,7 +20,7 @@ void HomeView::Create(lv_obj_t* root)
 	lv_obj_set_style_img_opa(ui.menu, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
 
 	ui.group = lv_group_create();
-	lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER), ui.group);
+	lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER, "Main"), ui.group);
 
 	lv_group_add_obj(ui.group, ui.menu);
 	lv_group_focus_obj(ui.menu);

@@ -1,8 +1,9 @@
 #include "HAL/HAL.h"
 
-static volatile int16_t EncoderDiff = 0;
+static volatile int16_t LeftEncoderDiff = 0;
+static volatile int16_t RightEncoderDiff = 0;
 
-static void Encoder_IrqHandler()
+static void RightEncoder_IrqHandler()
 {
   static volatile int count, countLast;
   static volatile uint8_t a0, b0;
@@ -26,33 +27,83 @@ static void Encoder_IrqHandler()
 
   if (count != countLast)
   {
-    EncoderDiff += (count - countLast) > 0 ? 1 : -1;
+    RightEncoderDiff += (count - countLast) > 0 ? 1 : -1;
+    countLast = count;
+  }
+}
+
+static void LeftEncoder_IrqHandler()
+{
+  static volatile int count, countLast;
+  static volatile uint8_t a0, b0;
+  static volatile uint8_t ab0;
+  uint8_t a = digitalRead(CONFIG_ENCODER_LEFT_A_PIN);
+  uint8_t b = digitalRead(CONFIG_ENCODER_LEFT_B_PIN);
+  if (a != a0)
+  {
+    a0 = a;
+    if (b != b0)
+    {
+      b0 = b;
+      count += ((a == b) ? 1 : -1);
+      if ((a == b) != ab0)
+      {
+        count += ((a == b) ? 1 : -1);
+      }
+      ab0 = (a == b);
+    }
+  }
+
+  if (count != countLast)
+  {
+    LeftEncoderDiff += (count - countLast) > 0 ? 1 : -1;
     countLast = count;
   }
 }
 
 void HAL::Encoder_Init()
 {
+  pinMode(CONFIG_ENCODER_LEFT_A_PIN, INPUT_PULLUP);
+  pinMode(CONFIG_ENCODER_LEFT_B_PIN, INPUT_PULLUP);
+  pinMode(CONFIG_ENCODER_LEFT_PUSH_PIN, INPUT_PULLUP);
+  attachInterrupt(CONFIG_ENCODER_LEFT_A_PIN, LeftEncoder_IrqHandler, CHANGE);
+
   pinMode(CONFIG_ENCODER_RIGHT_A_PIN, INPUT_PULLUP);
   pinMode(CONFIG_ENCODER_RIGHT_B_PIN, INPUT_PULLUP);
   pinMode(CONFIG_ENCODER_RIGHT_PUSH_PIN, INPUT_PULLUP);
-
-  attachInterrupt(CONFIG_ENCODER_RIGHT_A_PIN, Encoder_IrqHandler, CHANGE);
+  attachInterrupt(CONFIG_ENCODER_RIGHT_A_PIN, RightEncoder_IrqHandler, CHANGE);
 }
 
-int16_t HAL::Encoder_GetDiff()
+int16_t HAL::Encoder_GetLeftDiff()
 {
-  int16_t diff = EncoderDiff / 2;
+  int16_t diff = LeftEncoderDiff / 2;
   if (diff != 0)
   {
     // EncoderDiff是实际的脉冲数；把本次变量用掉了，需要重新置0
-    EncoderDiff = 0;
+    LeftEncoderDiff = 0;
   }
   
   return diff;
 }
 
-bool HAL::Encoder_GetIsPush()
+int16_t HAL::Encoder_GetRightDiff()
+{
+  int16_t diff = RightEncoderDiff / 2;
+  if (diff != 0)
+  {
+    // EncoderDiff是实际的脉冲数；把本次变量用掉了，需要重新置0
+    RightEncoderDiff = 0;
+  }
+  
+  return diff;
+}
+
+bool HAL::Encoder_GetLeftIsPush()
+{
+  return (digitalRead(CONFIG_ENCODER_LEFT_PUSH_PIN) == LOW);
+}
+
+bool HAL::Encoder_GetRightIsPush()
 {
   return (digitalRead(CONFIG_ENCODER_RIGHT_PUSH_PIN) == LOW);
 }

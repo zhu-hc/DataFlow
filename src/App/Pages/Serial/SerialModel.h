@@ -12,8 +12,6 @@ class SerialModel
 public:
     void Init();
     void DeInit();
-    uint32_t TickSave;
-    uint32_t GetData();
 };
 
 }

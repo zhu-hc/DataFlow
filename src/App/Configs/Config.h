@@ -35,6 +35,7 @@
 #define CONFIG_LED_SHCP             21
 #define CONFIG_LED_STCP             14
 #define CONFIG_LED_DS               13
+#define CONFIG_LED_REC              3
 
 /* Battery */
 #define CONFIG_BAT_DET_PIN          1
