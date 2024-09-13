@@ -65,4 +65,11 @@
 #define CONFIG_KEY_LEFT_PIN              48
 #define CONFIG_KEY_RIGHT_PIN             47
 
+/* UART */
+#define CONFIG_UART_TIMEOUT              200
+#define CONFIG_UART_RX_PIN               42
+#define CONFIG_UART_TX_PIN               41
+
+/* FFS */
+
 #endif

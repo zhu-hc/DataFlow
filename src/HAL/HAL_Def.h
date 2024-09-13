@@ -92,6 +92,13 @@ typedef struct
     int8_t RSSI;
 } WiFi_Info_t;
 
+/* FFS */
+typedef struct
+{
+    String Name;
+    String Value;
+} Config_Info_t;
+
 }
 
 

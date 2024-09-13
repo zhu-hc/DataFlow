@@ -16,6 +16,7 @@ void HAL::Init()
     Serial.println("Author: " VERSION_AUTHOR_NAME);
 
     HAL::Power_Init();
+    HAL::FFS_Init();
     HAL::WiFi_Init();
     HAL::Clock_Init();
     HAL::Backlight_Init();

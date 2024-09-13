@@ -7,6 +7,8 @@
 #include "CommonMacro.h"
 #include "FreeRTOS.h"
 #include <FastLED.h>
+#include <SPIFFS.h>
+#include <ArduinoJson.h>
 
 namespace HAL
 {
@@ -71,8 +73,14 @@ namespace HAL
     void WiFi_Init();
     void WiFi_GetInfo(WiFi_Info_t* const info);
 
+    /* UART */
+    void UART_Init();
+    void UART_SetBaudRate(uint32_t baud);
+
     /* SPIFFS */
     void FFS_Init();
+    bool FFS_WriteConfig(String app, const Config_Info_t * const info);
+    bool FFS_ReadConfig(String app, Config_Info_t * const info);
 }
 
 #endif

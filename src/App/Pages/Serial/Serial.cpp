@@ -57,7 +57,31 @@ void Serial::onViewLoad()
 	account = new Account("Serial", DataProc::Center(), 0, this);
 	account->Subscribe("Key");
 	account->Subscribe("Led");
+	account->Subscribe("Config");
 	account->SetEventCallback(onAccountEvent);
+
+	// 配置
+	HAL::Config_Info_t info;
+	info.Name = "C1";
+	if(account->Pull("Config", &info, sizeof(info)) == Account::RES_OK)
+	{
+		bauds[0].baud = atoi(info.Value.c_str());
+	}
+	else
+	{
+		info.Value = String(bauds[0].baud);
+	  account->Notify("Config", &info, sizeof(info));
+	}
+	info.Name = "C2";
+	if(account->Pull("Config", &info, sizeof(info)) == Account::RES_OK)
+	{
+		bauds[10].baud = atoi(info.Value.c_str());
+	}
+	else
+	{
+		info.Value = String(bauds[10].baud);
+	  account->Notify("Config", &info, sizeof(info));
+	}
 
 	SetBaud(6);
 }
