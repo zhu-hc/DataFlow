@@ -6,6 +6,7 @@
  *=========================*/
 
 /** PRIORITIES */
+#define TASK_WEB_PRIORITIES         (configMAX_PRIORITIES - 5)
 #define TASK_WIFI_PRIORITIES        (configMAX_PRIORITIES - 4)
 #define TASK_LVGL_PRIORITIES        (configMAX_PRIORITIES - 3)
 #define TASK_RGB_PRIORITIES         (configMAX_PRIORITIES - 2)

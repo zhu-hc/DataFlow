@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "HAL_Def.h"
 #include "App/Configs/Config.h"
+#include "App/Configs/Version.h"
 #include "CommonMacro.h"
 #include "FreeRTOS.h"
 #include <FastLED.h>
