@@ -36,6 +36,7 @@ do{\
         IMPORT_IMG(icon_serial);
         IMPORT_IMG(icon_scope);
         IMPORT_IMG(icon_ftp);
+        IMPORT_IMG(icon_nas);
     }
 
 } /* extern "C" */

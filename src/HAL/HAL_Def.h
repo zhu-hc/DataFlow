@@ -99,6 +99,15 @@ typedef struct
     String Value;
 } Config_Info_t;
 
+/* System */
+typedef struct
+{
+    String Name;
+    String Software;
+    String Hardware;
+    String Author;
+} System_Info_t;
+
 }
 
 

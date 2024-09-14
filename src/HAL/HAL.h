@@ -82,6 +82,9 @@ namespace HAL
     void FFS_Init();
     bool FFS_WriteConfig(String app, const Config_Info_t * const info);
     bool FFS_ReadConfig(String app, Config_Info_t * const info);
+
+    /* System */
+    void System_GetInfo(System_Info_t* const info);
 }
 
 #endif

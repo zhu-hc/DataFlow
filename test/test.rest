@@ -1,6 +1,20 @@
 @ip = 192.168.0.189
 @port = 80
 
-###
+### 主页
 http://{{ip}}:{{port}}
 
+### 获取配置
+GET http://{{ip}}:{{port}}/GetConfig
+    ?Name=Serial
+    &Config=C1
+
+
+### 修改配置
+POST http://{{ip}}:{{port}}/SetConfig
+     ?Name=Serial
+     &Config=C1
+     &Value=2400
+
+
+###

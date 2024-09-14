@@ -4,19 +4,9 @@ using namespace Page;
 
 static AppInfo Apps[] = {
   {
-    .name = "音乐",
-    .icon = "icon_music",
-    .page = "Pages/Music"
-  },
-  {
-    .name = "关于",
-    .icon = "icon_about",
-    .page = "About"
-  },
-  {
-    .name = "设置",
-    .icon = "icon_setting",
-    .page = "Setting"
+    .name = "监控",
+    .icon = "icon_nas",
+    .page = "Pages/Monitor"
   },
   {
     .name = "WiFi",
@@ -37,6 +27,16 @@ static AppInfo Apps[] = {
     .name = "FTP",
     .icon = "icon_ftp",
     .page = "Pages/FTP"
+  },
+  {
+    .name = "设置",
+    .icon = "icon_setting",
+    .page = "Setting"
+  },
+  {
+    .name = "关于",
+    .icon = "icon_about",
+    .page = "Pages/About"
   }
 };
 
