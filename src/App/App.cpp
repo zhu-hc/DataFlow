@@ -45,6 +45,7 @@ void App::Init()
     manager.Install("Music",    "Pages/Music");
     manager.Install("Serial",   "Pages/Serial");
     manager.Install("About",    "Pages/About");
+    manager.Install("Monitor",  "Pages/Monitor");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP);
     manager.Push("Pages/Startup");

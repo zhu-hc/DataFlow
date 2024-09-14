@@ -17,4 +17,18 @@ POST http://{{ip}}:{{port}}/SetConfig
      &Value=2400
 
 
-###
+### NetData
+@netdata_ip = 192.168.0.2
+@netdata_port = 19999
+
+### 查询上传下载网速 Bit/s
+GET http://{{netdata_ip}}:{{netdata_port}}/api/v1/data?chart=system.net&after=-1
+
+### 查询硬盘读写 Byte/s
+GET http://{{netdata_ip}}:{{netdata_port}}/api/v1/data?chart=system.io&after=-1
+
+### 查询CPU   %
+GET http://{{netdata_ip}}:{{netdata_port}}/api/v1/data?chart=system.cpu&after=-1
+
+### 查询RAM   MB
+GET http://{{netdata_ip}}:{{netdata_port}}/api/v1/data?chart=system.ram&after=-1
