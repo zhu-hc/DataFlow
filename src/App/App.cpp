@@ -46,6 +46,7 @@ void App::Init()
     manager.Install("Serial",   "Pages/Serial");
     manager.Install("About",    "Pages/About");
     manager.Install("Monitor",  "Pages/Monitor");
+    manager.Install("WiFi",     "Pages/WiFi");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP);
     manager.Push("Pages/Startup");

@@ -28,6 +28,7 @@
 #include "Serial/Serial.h"
 #include "About/About.h"
 #include "Monitor/Monitor.h"
+#include "WiFi/WiFi.h"
 
 #define APP_CLASS_MATCH(className)\
 do{\
@@ -46,6 +47,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(Serial);
     APP_CLASS_MATCH(About);
     APP_CLASS_MATCH(Monitor);
+    APP_CLASS_MATCH(WiFi);
 
     return nullptr;
 }
